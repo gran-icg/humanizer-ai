@@ -1,4 +1,15 @@
-const serverless = require("serverless-http");
-const app = require("../../server");
 
-exports.handler = serverless(app);
+[build]
+  publish = "public"
+  command = "echo Building"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/api/:splat"
+  status = 200
+  force = true
+
